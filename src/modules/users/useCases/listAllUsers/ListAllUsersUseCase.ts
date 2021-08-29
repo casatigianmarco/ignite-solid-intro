@@ -1,3 +1,4 @@
+import AppError from "../../../../errors/AppError";
 import { User } from "../../model/User";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
@@ -10,8 +11,10 @@ class ListAllUsersUseCase {
 
   execute({ user_id }: IRequest): User[] {
     const user = this.usersRepository.findById(user_id);
-    if (!user || !user.admin) {
-      throw new Error("user_not_exists_or_not_admin");
+    if (!user) {
+      throw new AppError("user_not_exists", 400);
+    } else if (!user.admin) {
+      throw new AppError("user_not_admin", 400);
     }
     return this.usersRepository.list();
   }

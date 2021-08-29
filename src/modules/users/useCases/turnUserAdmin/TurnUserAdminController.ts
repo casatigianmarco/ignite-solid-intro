@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { json, Request, Response } from "express";
 
 import { TurnUserAdminUseCase } from "./TurnUserAdminUseCase";
 
@@ -7,8 +7,8 @@ class TurnUserAdminController {
 
   handle(request: Request, response: Response): Response {
     const { user_id } = request.params;
-    this.turnUserAdminUseCase.execute({ user_id });
-    return response.status(201).send();
+    const adminUser = this.turnUserAdminUseCase.execute({ user_id });
+    return response.status(201).json(adminUser);
   }
 }
 

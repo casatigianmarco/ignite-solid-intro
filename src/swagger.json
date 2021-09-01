@@ -29,7 +29,7 @@
                                 },
                                 "example": {
                                     "name": "John Snow",
-                                    "email": "johnsnow@targarian.com"
+                                    "email": "johnsnow@stark.com"
                                 }
                             }
                         }
@@ -67,7 +67,7 @@
                                     "example": {
                                         "id": "9e67f8aa-b00c-498a-ae77-da2efa0b86ac",
                                         "name": "John Snow",
-                                        "email": "johnsnow@targarian.com",
+                                        "email": "johnsnow@stark.com",
                                         "admin": false,
                                         "created_at": "2021-09-01T00:21:45.885Z",
                                         "updated_at": "2021-09-01T00:21:45.885Z"
@@ -89,6 +89,209 @@
                                     },
                                     "example": {
                                         "error": "user_already_exists"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "error": "internal_server_error"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Users"],
+                "summary": "List users",
+                "description": "List all users",
+                "parameters": [
+                    {
+                      "name": "user_id",
+                      "in": "header",
+                      "description": "ID of admin user",
+                      "required": true,
+                      "schema": {
+                        "type": "string"
+                      }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "admin": {
+                                                "type": "boolean"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time"
+                                            }
+                                        }
+                                    }, 
+                                    "example": [
+                                        {
+                                            "id": "9e67f8aa-b00c-498a-ae77-da2efa0b86ac",
+                                            "name": "John Snow",
+                                            "email": "johnsnow@stark.com",
+                                            "admin": false,
+                                            "created_at": "2021-09-01T00:21:45.885Z",
+                                            "updated_at": "2021-09-01T00:21:45.885Z"
+                                        },
+                                        {
+                                            "id": "99db231d-38db-45a6-a27b-25d5ab14df84",
+                                            "name": "Daenerys Targaryen",
+                                            "email": "daenerys@targaryen.com",
+                                            "admin": false,
+                                            "created_at": "2021-09-01T00:21:45.885Z",
+                                            "updated_at": "2021-09-01T00:21:45.885Z"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "User Not Admin or User Not Exists",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "error": "user_not_admin"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "error": "internal_server_error"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}": {
+            "get": {
+                "tags": ["Users"],
+                "summary": "Show user",
+                "description": "Show a user",
+                "parameters": [
+                    {
+                      "name": "user_id",
+                      "in": "path",
+                      "description": "ID of user that needs to be shown",
+                      "required": true,
+                      "schema": {
+                        "type": "string"
+                      }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "admin": {
+                                            "type": "boolean"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "example": {
+                                        "id": "9e67f8aa-b00c-498a-ae77-da2efa0b86ac",
+                                        "name": "John Snow",
+                                        "email": "johnsnow@stark.com",
+                                        "admin": false,
+                                        "created_at": "2021-09-01T00:21:45.885Z",
+                                        "updated_at": "2021-09-01T00:21:45.885Z"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User Not Exists",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "error": "user_not_exists"
                                     }
                                 }
                             }
@@ -163,8 +366,8 @@
                                     "example": {
                                         "id": "9e67f8aa-b00c-498a-ae77-da2efa0b86ac",
                                         "name": "John Snow",
-                                        "email": "johnsnow@targarian.com",
-                                        "admin": false,
+                                        "email": "johnsnow@stark.com",
+                                        "admin": true,
                                         "created_at": "2021-09-01T00:21:45.885Z",
                                         "updated_at": "2021-09-01T00:21:45.885Z"
                                     }

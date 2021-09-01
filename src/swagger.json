@@ -114,6 +114,102 @@
                     }
                 }
             }
+        },
+        "/users/{user_id}/admin": {
+            "patch": {
+                "tags": ["Users"],
+                "summary": "Turn admin",
+                "description": "Turn a user as admin",
+                "parameters": [
+                    {
+                      "name": "user_id",
+                      "in": "path",
+                      "description": "ID of user that needs to be turned admin",
+                      "required": true,
+                      "schema": {
+                        "type": "string"
+                      }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "admin": {
+                                            "type": "boolean"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "example": {
+                                        "id": "9e67f8aa-b00c-498a-ae77-da2efa0b86ac",
+                                        "name": "John Snow",
+                                        "email": "johnsnow@targarian.com",
+                                        "admin": false,
+                                        "created_at": "2021-09-01T00:21:45.885Z",
+                                        "updated_at": "2021-09-01T00:21:45.885Z"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User Not Exists",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "error": "user_not_exists"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "error": "internal_server_error"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
